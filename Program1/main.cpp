@@ -12,6 +12,8 @@
 #include "objloader.hpp"
 #include "texture.hpp"
 
+#include "CustomObject.h"
+
 using namespace std;
 
 
@@ -28,16 +30,16 @@ unsigned const int DELTA = 10;
 //typedefs
 //--------------------------------------------------------------------------------
 
-struct LightSource
-{
-	glm::vec3 position;
-};
-
-struct Material 
-{
-	glm::vec3 ambient_color;
-	glm::vec3 diffuse_color;
-};
+//struct LightSource
+//{
+//	glm::vec3 position;
+//};
+//
+//struct Material 
+//{
+//	glm::vec3 ambient_color;
+//	glm::vec3 diffuse_color;
+//};
 
 //--------------------------------------------------------------------------------
 // Variables
@@ -53,6 +55,8 @@ glm::mat4 mv;
 LightSource light;
 Material material;
 
+CustomObject * obj;
+CustomObject * obj2;
 
 
 //--------------------------------------------------------------------------------
@@ -84,20 +88,23 @@ void Render()
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // Send vao
-    glBindVertexArray(vao);
-	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
-    glBindVertexArray(0);
+ //   // Send vao
+ //   glBindVertexArray(vao);
+	//glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+ //   glBindVertexArray(0);
 
-    // Do transformation
-    model = glm::rotate(model, 0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
-    mv = view * model;
+ //   // Do transformation
+ //   model = glm::rotate(model, 0.01f, glm::vec3(0.0f, 1.0f, 0.0f));
+ //   mv = view * model;
 
-    // Send mvp
-    glUseProgram(program_id);
-    glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
+ //   // Send mvp
+ //   glUseProgram(program_id);
+ //   glUniformMatrix4fv(uniform_mv, 1, GL_FALSE, glm::value_ptr(mv));
+	obj->Render();
+	obj2->Render();
 
     glutSwapBuffers();
+
 }
 
 
@@ -109,6 +116,7 @@ void Render()
 
 void Render(int n)
 {
+
     Render();
     glutTimerFunc(DELTA, Render, 0);
 }
@@ -285,11 +293,14 @@ void InitBuffers()
 int main(int argc, char ** argv)
 {
     InitGlutGlew(argc, argv);
-    InitShaders();
+   /* InitShaders();
 	InitMaterialsLight();
     InitMatrices();
     InitObjects();
     InitBuffers();
+*/
+	obj = new CustomObject(glm::vec3(5.0f, 5.0f, 10.0f), "Objects/torus.obj", "Textures/Yellobrk.bmp");
+	obj2 = new CustomObject(glm::vec3(-5.0f, -5.0f, -10.0f), "Objects/teapot.obj", "Textures/uvtemplate.bmp");
 
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);

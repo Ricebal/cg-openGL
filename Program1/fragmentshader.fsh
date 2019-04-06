@@ -26,9 +26,9 @@ void main()
     //vec3 R = reflect(-L, N);
 
     // Compute the diffuse and specular components for each fragment
-    vec3 diffuse = max(dot(N, L), 0.0) * mat_diffuse;
+    //vec3 diffuse = max(dot(N, L), 0.0) * mat_diffuse;
     //vec3 specular = pow(max(dot(R, V), 0.0), matPower) * matSpecular;
-	//vec3 diffuse = max(dot(N, L), 0.0) * texture2D(texsampler, UV).rgb;
+	vec3 diffuse = max(dot(N, L), 0.0) * texture2D(texsampler, UV).rgb;
 
     // Write final color to the framebuffer
     gl_FragColor = vec4(mat_ambient + diffuse, 1.0);

@@ -87,12 +87,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CustomObject.cpp" />
     <ClCompile Include="glsl.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="objloader.cpp" />
     <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CustomObject.h" />
     <ClInclude Include="glsl.h" />
     <ClInclude Include="objloader.hpp" />
     <ClInclude Include="texture.hpp" />
